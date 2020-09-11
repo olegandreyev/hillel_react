@@ -2,10 +2,12 @@ import React from 'react'
 
 import { TableHead, TableRow } from '@material-ui/core'
 import { StyledTableCell } from '../myComponents'
+import { connect } from 'react-redux'
 
+import {headerItems} from '../../data/arrays'
 
-const Header = (props) => {
-    const { headerItems } = props
+const Header = () => {
+    
     return (
         <TableHead>
             <TableRow>
@@ -18,6 +20,8 @@ const Header = (props) => {
         </TableHead>
     )
 }
+
+
 
 
 export default Header

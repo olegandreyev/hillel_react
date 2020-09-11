@@ -2,21 +2,27 @@ import React from 'react'
 
 import { StyledTableCell, StyledTableRow } from '../myComponents'
 import { Button } from '@material-ui/core'
+import { connect } from 'react-redux'
+import { removeItem } from '../../actions'
 
-const ProductRow = (props) => {
 
-    const { name, category, price, residue, id } = props.product
 
-    const { removedProduct } = props
+const ProductRow = ({ product, removeItem }) => {
 
+    const { name, category, price, residue, id } = product
+
+    
     return (
-        <StyledTableRow>
+        <StyledTableRow onClick={() => console.log(name, category, price, residue, id)}>
+
             <StyledTableCell align="center"> {name}</StyledTableCell>
             <StyledTableCell align="center">{category}</StyledTableCell>
             <StyledTableCell align="center">{price}</StyledTableCell>
             <StyledTableCell align="center">{residue}</StyledTableCell>
+
             <StyledTableCell align="center">
-                <Button variant="contained" color="primary" align="center" onClick={removedProduct.bind(null, id)}>
+
+                <Button variant="contained" color="primary" align="center" onClick={() => removeItem(id)}>
                     Delete
                         </Button>
             </StyledTableCell>
@@ -25,4 +31,11 @@ const ProductRow = (props) => {
 
 }
 
-export default ProductRow
+const mapDispatchToProps = dispatch => {
+    return {
+        removeItem: id => dispatch(removeItem(id))
+    }
+}
+
+
+export default connect(null, mapDispatchToProps)(ProductRow)
