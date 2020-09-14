@@ -1,12 +1,12 @@
-import React from "react";
+import React from "react"
 
-import { StyledTableCell, StyledTableRow } from "../myComponents";
-import { Button } from "@material-ui/core";
-import { connect } from "react-redux";
-import { removeItem, toggleInput, changeItem } from "../../actions";
-import "./ProductRow.css";
-import { Field, reduxForm, submit } from "redux-form";
-import { renderField, validate } from "../../helper/helper";
+import { StyledTableCell, StyledTableRow } from "../myComponents"
+import { Button } from "@material-ui/core"
+import { connect } from "react-redux"
+import { removeItem, toggleInput, changeItem } from "../../actions"
+
+import { Field, reduxForm, submit } from "redux-form"
+import { renderField, validate } from "../../helper/helper"
 
 const ProductRow = ({
   product,
@@ -14,7 +14,6 @@ const ProductRow = ({
   toggleInput,
   changeItem,
   handleSubmit,
-  // syncErrors,
   submitting,
 }) => {
   const { name, category, price, residue, id, isEdit } = product;
@@ -53,51 +52,40 @@ const ProductRow = ({
           <input name="name"
             type="text"
             value={name}
-            onChange={(e) => changeItem(id, e.target.name, e.target.value)}/>
+            onChange={(e) => changeItem(id, e.target.name, e.target.value)} />
         </StyledTableCell>
         <StyledTableCell align="center">
-        <input name="category"
+          <input name="category"
             type="text"
             value={category}
-            onChange={(e) => changeItem(id, e.target.name, e.target.value)}/>
+            onChange={(e) => changeItem(id, e.target.name, e.target.value)} />
         </StyledTableCell>
         <StyledTableCell align="center">
-        <input name="price"
+          <input name="price"
             type="text"
             value={price}
-            onChange={(e) => changeItem(id, e.target.name, e.target.value)}/>
-          
+            onChange={(e) => changeItem(id, e.target.name, e.target.value)} />
+
         </StyledTableCell>
         <StyledTableCell align="center">
-        <input name="residue"
+          <input name="residue"
             type="text"
             value={residue}
-            onChange={(e) => changeItem(id, e.target.name, e.target.value)}/>
-          
+            onChange={(e) => changeItem(id, e.target.name, e.target.value)} />
+
         </StyledTableCell>
         <StyledTableCell align="center">
-          {/* {!syncErrors ? ( */}
-            <Button
-              variant="contained"
-              color="primary"
-              align="center"
-              type="submit"
-              disabled={submitting}
-              onClick={() => toggleInput(id)}
-            >
-              Save
+          
+          <Button
+            variant="contained"
+            color="primary"
+            align="center"
+            type="submit"
+            disabled={submitting}
+            onClick={() => toggleInput(id)}
+          >
+            Save
             </Button>
-          {/* ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              align="center"
-              type="submit"
-              disabled={submitting}
-            >
-              Save
-            </Button>
-          )} */}
         </StyledTableCell>
       </StyledTableRow>
     );
@@ -106,8 +94,7 @@ const ProductRow = ({
 
 const mapStateToProps = (state) => {
   return {
-    newProduct: state.products.newProduct,
-    // syncErrors: state.form.productChangeForm.syncErrors,
+    newProduct: state.products.newProduct
   };
 };
 

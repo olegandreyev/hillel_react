@@ -1,4 +1,4 @@
-import { initialState } from "./initialState";
+import { initialState } from "./initialState"
 
 export const productReducer = (state = initialState.products, action) => {
   switch (action.type) {
@@ -9,7 +9,7 @@ export const productReducer = (state = initialState.products, action) => {
             (product) => product.id !== action.payload
           ),
         ],
-      };
+      }
     }
     case "CHANGE_ITEM": {
       return {
@@ -20,7 +20,7 @@ export const productReducer = (state = initialState.products, action) => {
               : product
           ),
         ],
-      };
+      }
     }
     case "ADD_ITEM": {
       return {
@@ -33,7 +33,7 @@ export const productReducer = (state = initialState.products, action) => {
           price: "",
           residue: "",
         },
-      };
+      }
     }
     case "HANDLE_INPUT_CHANGE": {
       return {
@@ -42,20 +42,20 @@ export const productReducer = (state = initialState.products, action) => {
           ...state.newProduct,
           ...action.payload,
         },
-      };
+      }
     }
     case "TOGGLE_EDIT_INPUT": {
       return {
         productList: [
-        ...state.productList.map((product) =>
+          ...state.productList.map((product) =>
             product.id === action.id
               ? { ...product, isEdit: !product.isEdit }
               : product
           ),
         ],
-      };
+      }
     }
     default:
       return state;
   }
-};
+}

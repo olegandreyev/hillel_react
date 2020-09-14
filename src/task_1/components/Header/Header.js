@@ -4,10 +4,10 @@ import { TableHead, TableRow } from '@material-ui/core'
 import { StyledTableCell } from '../myComponents'
 import { connect } from 'react-redux'
 
-import {headerItems} from '../../data/arrays'
+import { headerItems } from '../../data/arrays'
 
 const Header = () => {
-    
+
     return (
         <TableHead>
             <TableRow>
