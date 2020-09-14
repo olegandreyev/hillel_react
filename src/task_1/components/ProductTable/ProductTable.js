@@ -11,7 +11,7 @@ const ProductTable = ({productsList}) => {
     return (
         < TableBody >
             {
-                productsList.map(product => <ProductRow key={product} product={product} />)
+                productsList.map(item => <ProductRow key={item.id} product={item}/>)
             }
         </TableBody>
     )
@@ -23,5 +23,6 @@ const mapStateToProps = state => {
         productsList: state.products.productList
     }
 }
+
 
 export default connect(mapStateToProps)(ProductTable)

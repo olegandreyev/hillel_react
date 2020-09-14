@@ -24,23 +24,50 @@ export const headerItems = [
 export const products =  [
     {
       id: '1',
-      name: 'Yoghurt',
-      category: 159,
-      price: 6.0,
-      residue: 24
+      name: 'Milk',
+      category: "Milk",
+      price: 25,
+      residue: 10, 
+      isEdit: true
     },
     {
       id: '2',
       name: 'Sandwich',
-      category: 237,
-      price: 9.0,
-      residue: 37
+      category: 'Fast food',
+      price: 30,
+      residue: 5,
+      isEdit: true
     },
     {
       id: '3',
-      name: 'Eclair',
-      category: 262,
-      price: 16.0,
-      residue: 24
+      name: 'Nuts',
+      category: 'Chocolate',
+      price: 16,
+      residue: 30,
+      isEdit: true
+    },
+    {
+      id: '4',
+      name: 'Milk',
+      category: "Milk",
+      price: 25,
+      residue: 10, 
+      isEdit: true
+    },
+    {
+      id: '5',
+      name: 'Sandwich',
+      category: 'Fast food',
+      price: 30,
+      residue: 5,
+      isEdit: true
+    },
+    {
+      id: '6',
+      name: 'Nuts',
+      category: 'Chocolate',
+      price: 16,
+      residue: 30,
+      isEdit: true
     },
   ] 

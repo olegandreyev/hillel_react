@@ -7,10 +7,12 @@ export const initialState = {
             name: '',
             category: '',
             price: '',
-            residue: ''
-        }
+            residue: '', 
+            isEdit: true
+        },
+        product:{}
     },
     ui: {
-        isCreateFormHidden: false
+        isCreateFormHidden: false,
     }
 }

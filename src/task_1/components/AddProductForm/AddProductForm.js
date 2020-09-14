@@ -1,52 +1,45 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { handleInputChange, addItem } from '../../actions/index'
+import { handleInputChange, addItem, toggleCreateForm} from '../../actions/index'
+import { reduxForm, Field, submit} from 'redux-form'
+import {validate, renderField} from '../../helper/helper'
+  
 
-
-const AddProductForm = ({ handleInputChange, name, category, price, residue, addItem, newProduct }) => {
-
+const AddProductForm = ({
+    handleInputChange, 
+    addItem, 
+    newProduct, 
+    toggleCreateForm, 
+    handleSubmit, 
+    submitting, 
+    syncErrors
+}) => {
+    
     const handleAdd = (e) => {
         e.preventDefault()
-        console.log(newProduct)
         addItem(newProduct)
-    }
-
+        toggleCreateForm()
+    }   
+    
     return (
         <div className="section">
-            <form>
+            <form onSubmit={handleSubmit(submit)}>
+                <Field name="name" type="text" component={renderField} label="Name" onChange={(e) =>
+                            handleInputChange(e.target.name, e.target.value)}/>
+                 <Field name="category" type="text" component={renderField} label="Category" onChange={(e) =>
+                            handleInputChange(e.target.name, e.target.value)}/>
+                 <Field name="price" type="text" component={renderField} label="Price" onChange={(e) =>
+                            handleInputChange(e.target.name, e.target.value)}/>
+                 <Field name="residue" type="text" component={renderField} label="Residue" onChange={(e) =>
+                            handleInputChange(e.target.name, e.target.value)}/>
                 <div className="row">
                     <div className="input-field col offset-s4 s4">
-                        <input id="name" type="text" name='name' className="validate" onChange={(e) =>
-                            handleInputChange(e.target.name, e.target.value)}></input>
-                        <label for="name">Name</label>
+                        {(!syncErrors)?
+                        <button className="btn pink" type="submit" disabled={submitting} onClick={handleAdd}>Save</button>
+                    :<button className="btn pink" type="submit" disabled={submitting}>Save</button>
+                    }        
                     </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col offset-s4 s4">
-                        <input id="category" type="text" name='category' className="validate" onChange={(e) =>
-                            handleInputChange(e.target.name, e.target.value)}></input>
-                        <label for="category">Category</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col offset-s4 s4">
-                        <input id="price" type="text" name='price' className="validate" onChange={(e) =>
-                            handleInputChange(e.target.name, e.target.value)}></input>
-                        <label for="price">Price</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col offset-s4 s4">
-                        <input id="residue" type="text" name="residue" className="validate" onChange={(e) =>
-                            handleInputChange(e.target.name, e.target.value)}></input>
-                        <label for="residue">Residue</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col offset-s4 s4">
-                        <button className="btn pink" onClick={handleAdd}>Add</button>
-                    </div>
-                </div>
+                </div> 
             </form>
         </div>
     )
@@ -54,18 +47,19 @@ const AddProductForm = ({ handleInputChange, name, category, price, residue, add
 
 const mapStateToProps = state => {
     return {
-        newProduct: state.products.newProduct
+        newProduct: state.products.newProduct,
+        syncErrors: state.form.productForm.syncErrors
     }
 }
-
 
 const mapDispatchToProps = dispatch => {
     return {
         handleInputChange: (name, value) => dispatch(handleInputChange(name, value)),
         addItem: (newProduct) => dispatch(addItem(newProduct)),
+        toggleCreateForm: () => dispatch(toggleCreateForm())
     }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddProductForm)
+export default reduxForm({form: 'productForm', validate})(connect(mapStateToProps, mapDispatchToProps)
+(AddProductForm))
 

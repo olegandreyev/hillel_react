@@ -18,7 +18,7 @@ const App = ({ isCreateFormHidden, toggleCreateForm }) => {
           <ProductTable />
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" align="center" onClick={() => toggleCreateForm()}>Add user</Button>
+      <Button variant="contained" color="primary" align="center" onClick={() => toggleCreateForm()}>Add product</Button>
       {
         isCreateFormHidden ? <AddProductForm /> : null
       }
@@ -27,7 +27,6 @@ const App = ({ isCreateFormHidden, toggleCreateForm }) => {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     isCreateFormHidden: state.ui.isCreateFormHidden
   }
