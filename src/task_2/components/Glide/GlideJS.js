@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { initialGlider } from '../../helper/helper'
+import PropTypes from 'prop-types'
 
 class GlideJS extends Component {
 
@@ -23,6 +24,13 @@ class GlideJS extends Component {
             </div>
         )
     }
+}
+
+
+GlideJS.propTypes = {
+    id: PropTypes.string.isRequired,
+    options: PropTypes.object.isRequired,
+    images: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => {
