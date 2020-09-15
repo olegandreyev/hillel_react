@@ -1,13 +1,12 @@
-import React. {Fragment} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react'
+import GlideJS from './task_2/components/Glide/GlideJS'
 
 const App = () => {
   return (
     <Fragment>
-      <div>Hi</div>
+      <GlideJS />
     </Fragment>
   )
 }
 
-export default App;
+export default App
