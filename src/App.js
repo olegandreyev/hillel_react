@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react'
-import Button from './task_2/components/Button/Button'
 import GlideJS from './task_2/components/Glide/GlideJS'
 
-const options = {
+let options = {
   startAt: 0,
   perView: 1,
   type: 'carousel',
-  autoplay: 2000
+  autoplay: 1000
 }
 
 const images = [
@@ -19,8 +18,7 @@ const images = [
 const App = () => {
   return (
     <Fragment>
-      <GlideJS options={{ ...options }} imagesSources={[...images]}/>
-      <Button/>
+      <GlideJS options={{ ...options }} imagesSources={[...images]} />
     </Fragment>
   )
 }
