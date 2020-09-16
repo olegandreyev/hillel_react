@@ -1,23 +1,37 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { initialGlider } from '../../helper/helper'
-import PropTypes from 'prop-types'
+import './GlideJS.css'
+import Glide from '@glidejs/glide'
 
 class GlideJS extends Component {
-
-    componentDidMount = () => {
-        initialGlider(
-            this.props.id,
-            this.props.options)
+    constructor(props) {
+        super(props);
+        this.sliderRef = React.createRef()
     }
 
-    render() {
+    componentDidMount = () => {
+        this.initialGlider = new Glide(
+            this.sliderRef.current, this.props.options
+            )
+            this.initialGlider.mount()
+    }
+
+    componentDidUpdate = prevProps => {
+        if (prevProps.images !== this.props.images) {
+            this.initialGlider.update()
+        }
+      }
+
+    // componentWillUnmount = () => {
+
+    // }
+
+    render = () => {
         return (
-            <div id={this.props.id} style={{ overflowX: 'hidden', userSelect: 'none', maxWidth: '1000vw' }}>
+            <div ref={this.sliderRef} className= "glide">
                 <div className="glide__track" data-glide-el="track">
-                    <div className="glide__slides" style={{ display: 'flex' }}>
-                        {this.props.images.map((slide, index) => {
-                            return <img src={slide} alt="" key={index} />
+                    <div className="glide__slides">
+                        {this.props.imagesSources.map((slide, index) => {
+                            return <img className="glide__images" src={slide} alt="" key={index} />
                         })}
                     </div>
                 </div>
@@ -27,18 +41,6 @@ class GlideJS extends Component {
 }
 
 
-GlideJS.propTypes = {
-    id: PropTypes.string.isRequired,
-    options: PropTypes.object.isRequired,
-    images: PropTypes.array.isRequired
-}
 
-const mapStateToProps = state => {
-    return {
-        id: state.slider.id,
-        options: state.slider.options,
-        images: state.slider.images
-    }
-}
 
-export default connect(mapStateToProps)(GlideJS)
+export default GlideJS
