@@ -1,63 +1,51 @@
 import React, { Component } from 'react'
 import './GlideJS.css'
 import Glide from '@glidejs/glide'
-import Button from '../Button/Button';
-import {  Button as ButtonPrimary} from 'semantic-ui-react'
+import '@glidejs/glide/dist/css/glide.core.min.css'
+import '@glidejs/glide/dist/css/glide.theme.min.css'
+import PropTypes from 'prop-types'
+
 class GlideJS extends Component {
     constructor(props) {
         super(props);
         this.sliderRef = React.createRef()
-        this.state = {
-            options: this.props.options,
-            imagesSources: this.props.imagesSources
-        }
     }
 
     componentDidMount = () => {
         this.initialGlider = new Glide(
-            this.sliderRef.current, this.state.options
+            this.sliderRef.current, this.props.options
         )
         this.initialGlider.mount()
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.options !== this.state.options) {
-            this.initialGlider.update(this.state.options)
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.options !== this.props.options) {
+            this.initialGlider.update(this.props.options)
         }
     }
 
-    changeOptions = () => {
-        this.setState({
-            options: {
-                startAt: 1,
-                perView: 2,
-                autoplay:false
-            }
-        })
+    componentWillUnmount = () => {
+        this.initialGlider.destroy()
     }
-
-    // componentWillUnmount = () => {
-
-    // }
 
     render = () => {
         return (
             <div ref={this.sliderRef} className="glide">
                 <div className="glide__track" data-glide-el="track">
                     <div className="glide__slides">
-                        {this.state.imagesSources.map((slide, index) => {
-                            return <img className="glide__images" src={slide} alt="" key={index} />
+                        {this.props.images.map((slide, index) => {
+                            return <img className="glide__slide" src={slide} alt="" key={index} />
                         })}
                     </div>
                 </div>
-                <ButtonPrimary primary onClick={this.changeOptions}>Change options</ButtonPrimary>
-                {/* <Button changeOptions={this.changeOptions} /> */}
             </div>
         )
     }
 }
 
-
-
+GlideJS.propTypes = {
+    options: PropTypes.object.isRequired,
+    images: PropTypes.array.isRequired, 
+} 
 
 export default GlideJS
