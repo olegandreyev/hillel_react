@@ -1,39 +1,32 @@
-import React, { Component } from "react";
-import { Comment, Header, Loader } from "semantic-ui-react";
-import { postsUrl } from "../../data/constants";
-import { fetchData } from "../../helpers/helpers";
-import CommentCard from "../CommentCard/CommentCard";
+import React from 'react'
+import { Comment, Header, Loader } from 'semantic-ui-react'
+import { postsUrl } from '../../data/constants'
+import { useFetch } from '../../projectHooks/useFetch'
+import CommentCard from '../CommentCard/CommentCard'
 
-class CommentsList extends Component {
-  constructor(props) {
-    super(props);
-    this.commentsUrl = `${postsUrl}/${this.props.postId}/comments`;
-    this.state = {
-      comments: [],
-    };
-  }
+const CommentsList = ({ postId }) => {
 
-  componentDidMount = () => {
-    fetchData(this.commentsUrl).then((comments) => {
-      this.setState({
-        comments: comments,
-      });
-    });
-  };
+  const commentsUrl = `${postsUrl}/${postId}/comments`
 
-  render() {
-    const { comments } = this.state;
-    return (
-      <Comment.Group>
-        <Header as="h5" dividing>
-          Comments
+  const [comments, isFetching] = useFetch(commentsUrl)
+
+  return (
+    <Comment.Group>
+      <Header as="h5" dividing>
+        Comments
         </Header>
-        {comments.map((comment) => (
-          <CommentCard comment={comment} key={comment.id} />
-        ))}
-      </Comment.Group>
-    );
-  }
+      {
+      isFetching && <Loader size="large" active inline='centered'>
+        Loading
+        </Loader>
+        }
+      {
+      comments.map((comment) => (
+        <CommentCard comment={comment} key={comment.id} />
+      ))
+      }
+    </Comment.Group>
+  )
 }
 
-export default CommentsList;
+export default CommentsList

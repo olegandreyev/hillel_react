@@ -1,42 +1,32 @@
-import React, { Component } from "react";
-import { Feed, Loader } from "semantic-ui-react";
-import { postsUrl } from "../../data/constants";
-import { fetchData } from "../../helpers/helpers";
-import FeedCard from "../FeedCard/FeedCard";
-import "./FeedList.css";
+import React from 'react'
+import { Feed, Loader } from 'semantic-ui-react'
+import { postsUrl } from '../../data/constants'
+import FeedCard from '../FeedCard/FeedCard'
+import { useFetch } from '../../projectHooks/useFetch'
 
-class FeedList extends Component {
-  state = {
-    posts: [],
-    isFetching: false,
-  };
+const FeedList = ({ clickedName }) => {
 
-  componentDidMount = () => {
-    this.setState({ isFetching: true });
-    fetchData(postsUrl).then((posts) => {
-      this.setState({
-        posts: posts,
-        isFetching: false,
-      });
-    });
-  };
+  const [posts, isFetching] = useFetch(postsUrl)
 
-  render() {
-    const { clickedName } = this.props;
-    const { isFetching, posts } = this.state;
-    return (
-      <>
-        <Loader size="massive" active={isFetching}>
+  return (
+    <>
+      {
+        isFetching
+        &&
+        <Loader size="massive" active inline='centered'>
           Loading
         </Loader>
-        <Feed size="large">
-          {posts.map((post) => (
+      }
+      <Feed size="large">
+        {
+          posts.map(post => (
             <FeedCard post={post} key={post.id} clickedName={clickedName} />
-          ))}
-        </Feed>
-      </>
-    );
-  }
+          ))
+        }
+      </Feed>
+    </>
+  )
+
 }
 
-export default FeedList;
+export default FeedList

@@ -1,67 +1,45 @@
-import React, { Component } from "react";
-import "./FeedCard.css";
-import { Feed, Header, Loader } from "semantic-ui-react";
-import { fetchData } from "../../helpers/helpers";
-import { usersUrl } from "../../data/constants";
-import CommentsList from "../CommentsList/CommentsList";
+import React, { useState } from 'react'
+import { Feed, Header } from 'semantic-ui-react'
+import { usersUrl } from '../../data/constants'
+import CommentsList from '../CommentsList/CommentsList'
+import { useFetch } from '../../projectHooks/useFetch'
+import './FeedCard.css'
 
-class FeedCard extends Component {
-  constructor(props) {
-    super(props);
-    this.userUrl = `${usersUrl}/${this.props.post.userId}`;
-    this.albumsUrl = `${usersUrl}/${this.props.post.userId}/albums`;
+const FeedCard = ({ post, clickedName }) => {
 
-    this.state = {
-      user: {},
-      albums: [],
-      isClickeTitle: false,
-    };
+  const { userId } = post
+
+  const userUrl = `${usersUrl}/${userId}`
+
+  const [user] = useFetch(userUrl, {})
+
+  const [isClickedTitle, setIsClickedTitle] = useState(false)
+
+  const handleTitle = () => {
+    setIsClickedTitle(!isClickedTitle)
   }
 
-  componentDidMount = () => {
-    fetchData(this.userUrl).then((user) => {
-      this.setState({
-        user: user,
-      });
-    });
-
-    fetchData(this.albumsUrl).then((albums) => {
-      this.setState({
-        albums: albums,
-      });
-    });
-  };
-
-  handleTitle = () => {
-    this.setState({
-      isClickeTitle: !this.state.isClickeTitle,
-    });
-  };
-
-  render() {
-    const { post, clickedName } = this.props;
-    const { user, albums, isClickeTitle } = this.state;
-    return (
-      <>
-        <Feed.Event onClick={() => clickedName(user, albums)}>
-          <Feed.Content>
-            <Feed.Summary>
-              <Feed.User>{user.email}</Feed.User> submitted a new post:
+  return (
+    <>
+      <Feed.Event onClick={() => clickedName(user)}>
+        <Feed.Content>
+          <Feed.Summary>
+            <Feed.User>{user.email}</Feed.User> submitted a new post:
             </Feed.Summary>
-            <Feed.Extra text onClick={this.handleTitle}>
-              {post.title}
-            </Feed.Extra>
-            {isClickeTitle ? (
-              <>
-                <Header as="h3">{post.body}</Header>
-                <CommentsList postId={post.id} />
-              </>
-            ) : null}
-          </Feed.Content>
-        </Feed.Event>
-      </>
-    );
-  }
+          <Feed.Extra text onClick={handleTitle}>
+            {post.title}
+          </Feed.Extra>
+          {
+            isClickedTitle &&
+            <>
+              <Header as="h3">{post.body}</Header>
+              <CommentsList postId={post.id} />
+            </>
+          }
+        </Feed.Content>
+      </Feed.Event>
+    </>
+  )
 }
 
-export default FeedCard;
+export default FeedCard

@@ -1,18 +1,16 @@
-import React, { Component } from "react";
-import { Comment } from "semantic-ui-react";
+import React from 'react'
+import { Comment } from 'semantic-ui-react'
 
-class CommentCard extends Component {
-  render() {
-    const { email, body } = this.props.comment;
-    return (
-      <Comment>
-        <Comment.Content>
-          <Comment.Author as="a">{email}</Comment.Author>
-          <Comment.Text>{body}</Comment.Text>
-        </Comment.Content>
-      </Comment>
-    );
-  }
+const CommentCard = ({ comment }) => {
+  const { email, body } = comment
+  return (
+    <Comment>
+      <Comment.Content>
+        <Comment.Author as='a'>{email}</Comment.Author>
+        <Comment.Text>{body}</Comment.Text>
+      </Comment.Content>
+    </Comment>
+  )
 }
 
-export default CommentCard;
+export default CommentCard

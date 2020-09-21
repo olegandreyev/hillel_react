@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { List } from "semantic-ui-react";
+import React from 'react'
+import { List } from 'semantic-ui-react'
 
 const AlbumCard = ({ album }) => {
   return (
@@ -9,7 +9,7 @@ const AlbumCard = ({ album }) => {
         <List.Header as="a">{album.title}</List.Header>
       </List.Content>
     </List.Item>
-  );
-};
+  )
+}
 
-export default AlbumCard;
+export default AlbumCard
