@@ -7,7 +7,7 @@ import './FeedCard.css'
 
 const FeedCard = ({ post, clickedName }) => {
 
-  const { userId } = post
+  const { id, userId, body, title } = post
 
   const userUrl = `${usersUrl}/${userId}`
 
@@ -27,13 +27,13 @@ const FeedCard = ({ post, clickedName }) => {
             <Feed.User>{user.email}</Feed.User> submitted a new post:
             </Feed.Summary>
           <Feed.Extra text onClick={handleTitle}>
-            {post.title}
+            {title}
           </Feed.Extra>
           {
             isClickedTitle &&
             <>
-              <Header as="h3">{post.body}</Header>
-              <CommentsList postId={post.id} />
+              <Header as="h3">{body}</Header>
+              <CommentsList postId={id} />
             </>
           }
         </Feed.Content>
