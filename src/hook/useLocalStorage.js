@@ -2,30 +2,29 @@ import { useState, useEffect } from 'react'
 import { initialLocalStorage, getItemFromLocalStorage } from '../helper/helper'
 
 const useLocalStorage = (initialKey, initialValue = []) => {
-    const [localStorageKey] = useState(initialKey)
-    const [items, setItems] = useState(initialValue)
+    const [item, setItem] = useState(initialValue)
 
     useEffect(
         () => {
-            initialLocalStorage(localStorageKey)
+            initialLocalStorage(initialKey)
         }, [])
 
     useEffect(
         () => {
-            const itemsFromLocalStorage = getItemFromLocalStorage(localStorageKey)
+            const itemsFromLocalStorage = getItemFromLocalStorage(initialKey)
 
-            if (!Array.isArray(items)) {
+            if (!Array.isArray(item)) {
                 localStorage.setItem(
-                    localStorageKey,
+                    initialKey,
                     JSON.stringify(
-                        [...itemsFromLocalStorage, items]
+                        [...itemsFromLocalStorage, item]
                     ))
                 return
             }
             return
-        }, [items])
+        }, [item])
 
-    return [items, setItems]
+    return [item, setItem]
 }
 
 export default useLocalStorage
