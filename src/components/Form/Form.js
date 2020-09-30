@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import useLocalStorage from '../../hook/useLocalStorage'
+import { useLocalStorage } from '../../hook/useLocalStorage'
 import { Input, Button } from 'semantic-ui-react'
 import { useChangeTitle } from '../../hook/useChangeTitle'
 
@@ -7,18 +7,20 @@ const Form = () => {
     const [value, setValue] = useState('')
 
     //запись данных в localStorage
-    const [name, setName] = useLocalStorage('name')
+    const [name, setName] = useLocalStorage('name', 'Vadim')
 
+    console.log(name)
     //изменение нашего Title
-    useChangeTitle(name)
+    const [setTitle] = useChangeTitle('Hillel | Task_4')
 
     const onAddBtnClick = () => {
         setName(value)
+        setTitle(value)
         setValue('')
-    }
-    console.log(name)
-    return (
 
+    }
+
+    return (
         <>
             <Input
                 placeholder='Input name'

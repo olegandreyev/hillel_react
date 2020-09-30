@@ -1,30 +1,33 @@
-import { useState, useEffect } from 'react'
-import { initialLocalStorage, getItemFromLocalStorage } from '../helper/helper'
+import { useState } from 'react'
 
-const useLocalStorage = (initialKey, initialValue = []) => {
-    const [item, setItem] = useState(initialValue)
+export const useLocalStorage = (initialKey = 'defaultKey', initialValue = 'defaultValue') => {
 
-    useEffect(
+    const [storedValue, setStoredValue] = useState(
         () => {
-            initialLocalStorage(initialKey)
-        }, [])
+            try {
+                localStorage.setItem(initialKey, JSON.stringify(initialValue))
+                
+                const item = localStorage.getItem(initialKey)
 
-    useEffect(
-        () => {
-            const itemsFromLocalStorage = getItemFromLocalStorage(initialKey)
-
-            if (!Array.isArray(item)) {
-                localStorage.setItem(
-                    initialKey,
-                    JSON.stringify(
-                        [...itemsFromLocalStorage, item]
-                    ))
-                return
+                return item ? JSON.parse(item) : initialValue
+            } catch (error) {
+                console.log(error)
+                return initialValue
             }
-            return
-        }, [item])
+        })
 
-    return [item, setItem]
+    const setValue = value => {
+        try {
+            const valueToStore =
+                value instanceof Function ? value(storedValue) : value
+
+            setStoredValue(valueToStore)
+
+            localStorage.setItem(initialKey, JSON.stringify(valueToStore))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return [storedValue, setValue]
 }
-
-export default useLocalStorage

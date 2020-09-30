@@ -6,9 +6,14 @@ export const useOnlineStatus = () => {
 
     useEffect(
         () => {
-            window.addEventListener('online', () => setIsOnline(true));
-            window.addEventListener('offline', () => setIsOnline(false));
-        }, [isOnline]
+            window.addEventListener('online', () => setIsOnline(true))
+            window.addEventListener('offline', () => setIsOnline(false))
+
+            return () => {
+                window.removeEventListener('online', () => setIsOnline(true))
+                window.removeEventListener('offline', () => setIsOnline(false))
+            }
+        }
     )
 
     return isOnline
