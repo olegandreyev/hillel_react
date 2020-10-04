@@ -25,5 +25,5 @@ export const useChangeTitle = (initialTitle = 'App') => {
                 }
         }
 
-        return [setTitle]
+        return setTitle
 }
